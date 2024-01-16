@@ -18,8 +18,10 @@ def index():
 @app.route('/predictdata',methods=['GET','POST'])
 def predict_datapoint():
     if request.method == 'GET':
+        print("HERE IS GET")
         return render_template('home.html')
     else:
+        print("HERE IS POST")
         data = CustomData(
             gender=request.form.get('gender'),
             race_ethnicity=request.form.get('ethnicity'),
@@ -30,6 +32,7 @@ def predict_datapoint():
             writing_score=float(request.form.get('reading_score'))
         )
         pred_df = data.get_data_as_dataframe()
+        print("HERE IS PREDICTION DATA FRAME")
         print(pred_df)
 
         predict_pipeline = PredictPipeline()
@@ -39,4 +42,4 @@ def predict_datapoint():
         return render_template('home.html',results=results[0])
     
 if __name__ == "__main__":
-    app.run(host="0.0.0.0",debug=True)
+    app.run(host="0.0.0.0",debug=True,port=80)
