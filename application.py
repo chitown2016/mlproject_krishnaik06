@@ -31,9 +31,10 @@ def predict_datapoint():
         )
         pred_df = data.get_data_as_dataframe()
         application.logger.info("HERE IS PREDICTION DATA FRAME")
-        application.logger.info(pred_df)
-
+        application.logger.info(pred_df.iloc[0])
+        application.logger.info("NOW CREATING PREDICT PIPELINE")
         predict_pipeline = PredictPipeline()
+        application.logger.info("NOW PREDICTING")
         results = predict_pipeline.predict(pred_df)
         application.logger.info("RESULTS ARE HERE:")
         application.logger.info(results)
