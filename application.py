@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import numpy as np
 import pandas as pd
+import logging
 
 from sklearn.preprocessing import StandardScaler
 from src.pipeline.predict_pipeline import CustomData, PredictPipeline
@@ -42,3 +43,7 @@ def predict_datapoint():
     
 if __name__ == "__main__":
     application.run(host="0.0.0.0",debug=True,port=80)
+else:
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    application.logger.handlers = gunicorn_logger.handlers
+    application.logger.setLevel(logging.INFO)
